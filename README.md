@@ -3,6 +3,10 @@
 
 ------------------------
 
+###demo预览
+![](https://github.com/splm/WeVision/master/device-2016-11-04-152307.png)
+[](https://github.com/splm/WeVision/master/wevision-demo.apk)
+
 ###如何使用
 `Step 1:`
 ```gradle
@@ -13,7 +17,8 @@
 `Step 2:`
 
 ```java
-    WeVisionEngine.use(Vision.FadeInLeft).playOn(target);//可以简单理解为，WeVision引擎使用FadeInLeft效果，作用在Target控件上。
+    WeVisionEngine.use(Vision.FadeInLeft).playOn(target);
+    //可以简单理解为，WeVision引擎使用FadeInLeft效果，作用在Target控件上。
 ```
 
 -------------------------
