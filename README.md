@@ -4,8 +4,8 @@
 ------------------------
 
 ###demo预览
-![](https://github.com/splm/WeVision/master/device-2016-11-04-152307.png)
-[](https://github.com/splm/WeVision/master/wevision-demo.apk)
+![](https://github.com/splm/WeVision/blob/master/device-2016-11-04-152307.png)
+[文件下载](https://github.com/splm/WeVision/blob/master/wevision-demo.apk)
 
 ###如何使用
 `Step 1:`
