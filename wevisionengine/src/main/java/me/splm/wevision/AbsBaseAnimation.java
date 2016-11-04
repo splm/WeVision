@@ -1,6 +1,5 @@
 package me.splm.wevision;
 
-import android.util.Log;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
@@ -9,8 +8,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.view.ViewHelper;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
 
 public abstract class AbsBaseAnimation {
 	
@@ -18,9 +16,11 @@ public abstract class AbsBaseAnimation {
 	public static final long DELAY=100;
 
 	private long mDuration;
-	private Queue<AnimatorSet> mAnimatorSetQueue=new LinkedList<>();
+	private ArrayList<AnimatorSet> mAnimatorSetQueue=new ArrayList<>();
 	private AnimatorSet mAnimatorSet;
 	private int queueCount;
+	private boolean isNodeStarted;
+	private boolean isAllNodeEnd;
 
 	{
 		mAnimatorSet=new AnimatorSet();
@@ -68,7 +68,7 @@ public abstract class AbsBaseAnimation {
 	private void confirmAnimation(View target,int index){//4
 		measureTarget(target);
 		AnimatorSet set=new AnimatorSet();
-		mAnimatorSetQueue.offer(set);
+		mAnimatorSetQueue.add(set);
 		composeAnimator(set,target,index);
 		//animate(target, index);//5
 	}
@@ -118,36 +118,10 @@ public abstract class AbsBaseAnimation {
 	}
 
 	public void addListener(final WeVisionAnimatorListener listener){
-		final Queue<AnimatorSet> queue=getAnimatorQueue();
+		ArrayList<AnimatorSet> queue=getAnimatorQueue();
 		int size=queue.size();
 		for(int i=0;i<size;i++){
-			queueCount=i;
-			AnimatorSet node=queue.poll();
-			node.addListener(new Animator.AnimatorListener() {
-				@Override
-				public void onAnimationStart(Animator animation) {
-					listener.onStart(animation);
-				}
-
-				@Override
-				public void onAnimationEnd(Animator animation) {
-					int size=queue.size();
-					if(size==0){
-						listener.onEnd(animation);
-						Log.e("/***********","end");
-					}
-				}
-
-				@Override
-				public void onAnimationCancel(Animator animation) {
-
-				}
-
-				@Override
-				public void onAnimationRepeat(Animator animation) {
-
-				}
-			});
+			AnimatorSet node=queue.get(i);
 		}
 	}
 	
@@ -167,12 +141,12 @@ public abstract class AbsBaseAnimation {
 		return this.mAnimatorSet;
 	}
 
-	protected  Queue<AnimatorSet> getAnimatorQueue(){
+	protected  ArrayList<AnimatorSet> getAnimatorQueue(){
 		return this.mAnimatorSetQueue;
 	}
 	public interface WeVisionAnimatorListener{
 		void onStart(Animator animator);
-		void onEnd(Animator animator);
+		void onEnd();
 		void onCancel(Animator animator);
 	}
 }

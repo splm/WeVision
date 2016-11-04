@@ -65,8 +65,8 @@ public class WeVisionEngine {
 					mAnimation.addAnimatorListener(listener);
 				}
 			}*/
-			mAnimation.start();
 			mAnimation.addListener(mListener);
+			mAnimation.start();
 			return new WeAnimationStatus(mAnimation);
 		}
 		

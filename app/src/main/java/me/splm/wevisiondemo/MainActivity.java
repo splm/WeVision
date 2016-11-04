@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onEnd(Animator animator) {
+            public void onEnd() {
                 Log.e(TAG,"onend");
             }
 
