@@ -20,6 +20,9 @@ public class WeVisionEngine {
 		public boolean isRunning(){
 			return mAnimation.isRunning();
 		}
+		public boolean isEnd(){
+			return mAnimation.isEnd();
+		}
 		public void stop(){
 			mAnimation.stop();
 		}

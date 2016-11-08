@@ -1,13 +1,13 @@
-###WeVision是什么?
-> 一个动画库基于[NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)的动画
+###What is WeVision?
+> An animation libary which bases on [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids).
 
 ------------------------
 
-###demo预览
+###Preview
 ![](https://github.com/splm/WeVision/blob/master/device-2016-11-04-152307.png)
-- [下载demoApk](https://github.com/splm/WeVision/blob/master/wevision-demo.apk)
+- [Donwload DemoApk](https://github.com/splm/WeVision/blob/master/wevision-demo.apk)
 
-###如何使用
+###How 2 use:
 `Step 1:`
 ```gradle
     compile project (':wevisionengine')
@@ -17,22 +17,44 @@
 `Step 2:`
 
 ```java
-    WeVisionEngine.use(Vision.FadeInLeft).playOn(target);
-    //可以简单理解为，WeVision引擎使用FadeInLeft效果，作用在Target控件上。
+    //You can interpreted simply as WeVision engine use FadeInLeft effection on target view.
+     WeVisionEngine.WeVisionStatus status=WeVisionEngine.use(Vision.FadeInLeft).addListener(new AbsBaseAnimation.WeVisionAnimatorListener() {
+                @Override
+                public void onStart(Animator animator) {
+                    Log.e(TAG,"The animations of whole views are starting!");
+                }
+
+                @Override
+                public void onEnd() {
+                    Log.e(TAG,"All of animations have completed!");
+                }
+
+            }).playOn(target_container);
+```
+
+- `I want to check state`
+
+```java
+boolean isRunning=status.isRunning(); //isRunning
+boolean isEnd=status.isEnd();//isEnd
+```
+
+- `I want to stop!`
+
+```java
+    WeVisionStatus status=WeVisionEngine.use(Vision.FadeInLeft).playOn(targetView);
+    status.stop();
 ```
 
 -------------------------
 
-`注意`
-> 关于playOn()方法的参数target为view类型，如果target为普通的view，那么为单一效果，如果为viewgroup那么其内部的子控件包括子viewgroup都会依次执行该效果；
+`Notice`
+> About what type of parameters apply for "playOn" method,if parameter "target" is a common view,you could see a simple vision;
+> but if you set a viewgroup as a parameter,all of the children in this viewgroup are going to work,and then excuted in order!
 
-###存在的问题
-- 没有集成动画过程的监听器，目前还无法准确跟踪动画的执行流程；
-
-
-###参考
+###Reference
 - [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)
 - [Android View Animations](https://github.com/daimajia/AndroidViewAnimations)
 
-###联系方式
-> Email:splm_lis@163.com
+###Contace me
+> Email: splm_lis@163.com
