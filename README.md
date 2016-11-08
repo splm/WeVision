@@ -56,5 +56,5 @@ status.stop();
 - [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)
 - [Android View Animations](https://github.com/daimajia/AndroidViewAnimations)
 
-###Contace me
+###Contact me
 > Email: splm_lis@163.com
