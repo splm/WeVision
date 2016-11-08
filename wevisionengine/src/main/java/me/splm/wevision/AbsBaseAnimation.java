@@ -5,26 +5,29 @@ import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 
 import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbsBaseAnimation {
 	
 	public static final long DURATION=1000;
 	public static final long DELAY=100;
+	/**State of running**/
+	private static final int RUNNING=1;
+	/**state of stopped**/
+	private static final int STOPPED=0;
+
+	/**current animation plays state.**/
+	private int mPlayStatus;//0 stop,1 running,
+	/**current animation wheather is running.**/
+	private boolean isRunning;
 
 	private long mDuration;
-	private ArrayList<AnimatorSet> mAnimatorSetQueue=new ArrayList<>();
-	private AnimatorSet mAnimatorSet;
-	private int queueCount;
-	private boolean isNodeStarted;
-	private boolean isAllNodeEnd;
-
-	{
-		mAnimatorSet=new AnimatorSet();
-	}
+	private List<AnimatorSet> mAnimatorSetQueue=new ArrayList<>();
 
 	public AbsBaseAnimation duration(long timemills){
 		this.mDuration=timemills;
@@ -80,7 +83,28 @@ public abstract class AbsBaseAnimation {
 			set.setDuration(mDuration);
 			set.setStartDelay(delays(i));
 			set.start();//6
+			if(set.isStarted()){
+				//When use start() method,it means current animation has already run,so field isRunning is True,although delay is a nonzero,but animation is not running.
+				isRunning=true;
+			}
+			if(set.isRunning()){//Current animation is running,and delay time has passed.
+				mPlayStatus=RUNNING;
+			}
 			i++;
+		}
+	}
+
+	/**
+	 * stop all animations
+	 */
+	public void stop(){
+		List<AnimatorSet> list=getAnimatorQueue();
+		for(AnimatorSet set:list){
+			if(set.isRunning()){
+				set.end();
+				isRunning=false;
+				mPlayStatus=STOPPED;
+			}
 		}
 	}
 
@@ -112,41 +136,43 @@ public abstract class AbsBaseAnimation {
 		return this.mDuration;
 	}
 
-	/******************************************************************/
-	public void addAnimatorListener(Animator.AnimatorListener listener){
-		mAnimatorSet.addListener(listener);
-	}
-
 	public void addListener(final WeVisionAnimatorListener listener){
-		ArrayList<AnimatorSet> queue=getAnimatorQueue();
+		List<AnimatorSet> queue=getAnimatorQueue();
 		int size=queue.size();
-		for(int i=0;i<size;i++){
-			AnimatorSet node=queue.get(i);
+		if(size==0){
+			return;
 		}
-	}
-	
-	public void stop(){
-		mAnimatorSet.cancel();
-	}
-	
-	public boolean isRunning(){
-		return mAnimatorSet.isRunning();
-	}
-	
-	public boolean isStarted(){
-		return mAnimatorSet.isStarted();
-	}
-	
-	protected AnimatorSet getAnimationSet(){
-		return this.mAnimatorSet;
+		AnimatorSet firstSet=queue.get(0);
+		AnimatorSet lastSet=queue.get(size-1);
+		firstSet.addListener(new AnimatorListenerAdapter() {
+			@Override
+			public void onAnimationStart(Animator animation) {
+				super.onAnimationStart(animation);
+				listener.onStart(animation);
+			}
+		});
+		lastSet.addListener(new AnimatorListenerAdapter() {
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				super.onAnimationEnd(animation);
+				listener.onEnd();
+				stop();
+			}
+		});
 	}
 
-	protected  ArrayList<AnimatorSet> getAnimatorQueue(){
+	public boolean isRunning(){
+		return (mPlayStatus==RUNNING||isRunning);
+	}
+	public boolean isEnd(){
+		return mPlayStatus==STOPPED;
+	}
+
+	protected  List<AnimatorSet> getAnimatorQueue(){
 		return this.mAnimatorSetQueue;
 	}
 	public interface WeVisionAnimatorListener{
 		void onStart(Animator animator);
 		void onEnd();
-		void onCancel(Animator animator);
 	}
 }
