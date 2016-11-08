@@ -35,6 +35,7 @@
 - `I want to check state`
 
 ```java
+WeVisionStatus status=WeVisionEngine.use(Vision.FadeInLeft).playOn(targetView);
 boolean isRunning=status.isRunning(); //isRunning
 boolean isEnd=status.isEnd();//isEnd
 ```
@@ -42,13 +43,12 @@ boolean isEnd=status.isEnd();//isEnd
 - `I want to stop!`
 
 ```java
-    WeVisionStatus status=WeVisionEngine.use(Vision.FadeInLeft).playOn(targetView);
-    status.stop();
+status.stop();
 ```
 
 -------------------------
 
-`Notice`
+###Notice`
 > About what type of parameters apply for "playOn" method,if parameter "target" is a common view,you could see a simple vision;
 > but if you set a viewgroup as a parameter,all of the children in this viewgroup are going to work,and then excuted in order!
 
