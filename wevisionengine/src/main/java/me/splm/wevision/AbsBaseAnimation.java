@@ -83,14 +83,15 @@ public abstract class AbsBaseAnimation {
 			set.setDuration(mDuration);
 			set.setStartDelay(delays(i));
 			set.start();//6
-			if(set.isStarted()){
-				//When use start() method,it means current animation has already run,so field isRunning is True,although delay is a nonzero,but animation is not running.
-				isRunning=true;
-			}
-			if(set.isRunning()){//Current animation is running,and delay time has passed.
-				mPlayStatus=RUNNING;
-			}
 			i++;
+		}
+		AnimatorSet firstSet=mAnimatorSetQueue.get(0);
+		if(firstSet.isStarted()){
+			//When use start() method,it means current animation has already run,so field isRunning is True,although delay is a nonzero,but animation is not running.
+			isRunning=true;
+		}
+		if(firstSet.isRunning()){//Current animation is running,and delay time has passed.
+			mPlayStatus=RUNNING;
 		}
 	}
 
@@ -102,10 +103,14 @@ public abstract class AbsBaseAnimation {
 		for(AnimatorSet set:list){
 			if(set.isRunning()){
 				set.end();
-				isRunning=false;
-				mPlayStatus=STOPPED;
 			}
 		}
+		stopStatus();
+	}
+
+	private void stopStatus(){
+		isRunning=false;
+		mPlayStatus=STOPPED;
 	}
 
 	private void composeAnimator(AnimatorSet set,View view, int index){
@@ -129,7 +134,7 @@ public abstract class AbsBaseAnimation {
 	}
 	
 	protected long delays(int index){
-		return DELAY + index * DELAY;
+		return index * DELAY;
 	}
 	
 	protected long getDuration(){
@@ -144,21 +149,23 @@ public abstract class AbsBaseAnimation {
 		}
 		AnimatorSet firstSet=queue.get(0);
 		AnimatorSet lastSet=queue.get(size-1);
-		firstSet.addListener(new AnimatorListenerAdapter() {
-			@Override
-			public void onAnimationStart(Animator animation) {
-				super.onAnimationStart(animation);
-				listener.onStart(animation);
-			}
-		});
-		lastSet.addListener(new AnimatorListenerAdapter() {
-			@Override
-			public void onAnimationEnd(Animator animation) {
-				super.onAnimationEnd(animation);
-				listener.onEnd();
-				stop();
-			}
-		});
+		if(listener!=null){
+			firstSet.addListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationStart(Animator animation) {
+					super.onAnimationStart(animation);
+					listener.onStart(animation);
+				}
+			});
+			lastSet.addListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					super.onAnimationEnd(animation);
+					listener.onEnd();
+					stopStatus();
+				}
+			});
+		}
 	}
 
 	public boolean isRunning(){
