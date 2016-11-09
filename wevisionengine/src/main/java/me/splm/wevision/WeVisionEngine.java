@@ -26,6 +26,9 @@ public class WeVisionEngine {
 		public void stop(){
 			mAnimation.stop();
 		}
+		public AbsBaseAnimation.WeVisionAnimatorListener getListener(){
+			return mAnimation.getListener();
+		}
 	}
 	
 	public static final class WeAnimationComposer {

@@ -25,6 +25,7 @@ public abstract class AbsBaseAnimation {
 	private int mPlayStatus;//0 stop,1 running,
 	/**current animation wheather is running.**/
 	private boolean isRunning;
+	private WeVisionAnimatorListener mListener;
 
 	private long mDuration;
 	private List<AnimatorSet> mAnimatorSetQueue=new ArrayList<>();
@@ -142,6 +143,7 @@ public abstract class AbsBaseAnimation {
 	}
 
 	public void addListener(final WeVisionAnimatorListener listener){
+		this.mListener=listener;
 		List<AnimatorSet> queue=getAnimatorQueue();
 		int size=queue.size();
 		if(size==0){
@@ -167,7 +169,9 @@ public abstract class AbsBaseAnimation {
 			});
 		}
 	}
-
+	public WeVisionAnimatorListener getListener(){
+		return this.mListener;
+	}
 	public boolean isRunning(){
 		return (mPlayStatus==RUNNING||isRunning);
 	}
