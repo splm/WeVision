@@ -40,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
         animation_list_lv=(ListView) findViewById(R.id.animation_list_lv);
         target_tv=(TextView) findViewById(R.id.target_tv);
         //init data
-        String[] names={"FadeInLeft","FadeInRight","FlipInX","FlipOutX","FlipInY","FlipOutY","DropOut",
+        String[] names={"FadeInLeft","FadeInRight","FadeInUp","FadeInDown","FlipInX","FlipOutX","FlipInY","FlipOutY","DropOut",
                 "Shake","ShakeHarder","BouncingIn","BouncingInDown","BouncingInLeft",
                 "BouncingInRight","BouncingInUp","ScaleIn","ScaleOut","Flash","TakeOff"};
-        Vision[] visions={Vision.FadeInLeft, Vision.FadeInRight,Vision.FlipInX, Vision.FlipOutX, Vision.FlipInY, Vision.FlipOutY,
+        Vision[] visions={Vision.FadeInLeft, Vision.FadeInRight,Vision.FadeInUp,Vision.FadeInDown,Vision.FlipInX,
+                Vision.FlipOutX, Vision.FlipInY, Vision.FlipOutY,
                 Vision.DropOut, Vision.Shake, Vision.ShakeHarder, Vision.BouncingIn, Vision.BouncingInDown,
-                Vision.BouncingInLeft, Vision.BouncingInRight, Vision.BouncingInUp, Vision.ScaleIn, Vision.ScaleOut, Vision.Flash, Vision.TakeOff};
+                Vision.BouncingInLeft, Vision.BouncingInRight, Vision.BouncingInUp, Vision.ScaleIn, Vision.ScaleOut,
+                Vision.Flash, Vision.TakeOff};
         for(int i=0;i<names.length;i++){
             SampleAnimModel model=new SampleAnimModel();
             model.setName(names[i]);
