@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         animation_list_lv=(ListView) findViewById(R.id.animation_list_lv);
         target_tv=(TextView) findViewById(R.id.target_tv);
         //init data
-        String[] names={"FadeInLeft","FadeInRight","FadeInUp","FadeInDown","FlipInX","FlipOutX","FlipInY","FlipOutY","DropOut",
+        String[] names={"FadeInNoDir","FadeOut","FadeInLeft","FadeInRight","FadeInUp","FadeInDown","FlipInX","FlipOutX","FlipInY","FlipOutY","DropOut",
                 "Shake","ShakeHarder","BouncingIn","BouncingInDown","BouncingInLeft",
                 "BouncingInRight","BouncingInUp","ScaleIn","ScaleOut","Flash","TakeOff"};
-        Vision[] visions={Vision.FadeInLeft, Vision.FadeInRight,Vision.FadeInUp,Vision.FadeInDown,Vision.FlipInX,
+        Vision[] visions={Vision.FadeInNoDir,Vision.FadeOut,Vision.FadeInLeft, Vision.FadeInRight,Vision.FadeInUp,Vision.FadeInDown,Vision.FlipInX,
                 Vision.FlipOutX, Vision.FlipInY, Vision.FlipOutY,
                 Vision.DropOut, Vision.Shake, Vision.ShakeHarder, Vision.BouncingIn, Vision.BouncingInDown,
                 Vision.BouncingInLeft, Vision.BouncingInRight, Vision.BouncingInUp, Vision.ScaleIn, Vision.ScaleOut,

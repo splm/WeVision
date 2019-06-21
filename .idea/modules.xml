@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/WeVision.iml" filepath="$PROJECT_DIR$/.idea/WeVision.iml" />
       <module fileurl="file://$PROJECT_DIR$/WeVisionDemo.iml" filepath="$PROJECT_DIR$/WeVisionDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wevisionengine/wevisionengine.iml" filepath="$PROJECT_DIR$/wevisionengine/wevisionengine.iml" />
       <module fileurl="file://$PROJECT_DIR$/wevisionengine/wevisionengine.iml" filepath="$PROJECT_DIR$/wevisionengine/wevisionengine.iml" />
     </modules>
   </component>

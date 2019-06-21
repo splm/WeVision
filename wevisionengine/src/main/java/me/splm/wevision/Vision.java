@@ -13,8 +13,10 @@ import me.splm.wevision.animation.bounce.BounceInRightAnimation;
 import me.splm.wevision.animation.bounce.BounceInUpAnimation;
 import me.splm.wevision.animation.fadeIn.FadeInDownAnimation;
 import me.splm.wevision.animation.fadeIn.FadeInLeftAnimation;
+import me.splm.wevision.animation.fadeIn.FadeInNoDirAnimation;
 import me.splm.wevision.animation.fadeIn.FadeInRightAnimation;
 import me.splm.wevision.animation.fadeIn.FadeInUpAnimation;
+import me.splm.wevision.animation.fadeIn.FadeOutAnimation;
 import me.splm.wevision.animation.flip.FlipInXAnimation;
 import me.splm.wevision.animation.flip.FlipInYAnimation;
 import me.splm.wevision.animation.flip.FlipOutXAnimation;
@@ -23,7 +25,8 @@ import me.splm.wevision.animation.scaling.ScaleInAnimation;
 import me.splm.wevision.animation.scaling.ScaleOutAnimation;
 
 public enum Vision {
-	
+	FadeInNoDir(FadeInNoDirAnimation.class),
+	FadeOut(FadeOutAnimation.class),
 	FadeInLeft(FadeInLeftAnimation.class),
 	FadeInRight(FadeInRightAnimation.class),
 	FadeInUp(FadeInUpAnimation.class),
